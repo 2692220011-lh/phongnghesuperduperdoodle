@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phòng nghe — English for Doctors</title>
+<style>
+:root{
+  --navy:#1B2445; --navy2:#2B3763; --blue:#4E67C8; --blueLt:#CADCFC;
+  --blueBg:#EDF3FC; --cyan:#5ECCF3; --orange:#E4572E;
+  --bg:#F4F7FD; --card:#FFFFFF; --ink:#1F2430; --muted:#5D6B8A; --line:#D3DEF1;
+}
+:root:not([data-theme="light"]) { @media (prefers-color-scheme: dark){
+  --bg:#11162A; --card:#1A2140; --ink:#E8EDF9; --muted:#93A1C4; --line:#2E3A62;
+  --blueBg:#1F2A4D; --blueLt:#3A4B86;
+}}
+:root[data-theme="dark"]{
+  --bg:#11162A; --card:#1A2140; --ink:#E8EDF9; --muted:#93A1C4; --line:#2E3A62;
+  --blueBg:#1F2A4D; --blueLt:#3A4B86;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:'Segoe UI',Calibri,system-ui,-apple-system,sans-serif;
+  line-height:1.55; -webkit-text-size-adjust:100%;
+}
+header{background:var(--navy); color:#fff; padding:22px 16px 18px}
+.wrap{max-width:860px; margin:0 auto; padding:0 16px}
+header .wrap{padding:0 16px}
+h1{font-family:Cambria,Georgia,serif; font-size:1.5rem; margin:0 0 4px}
+header p{margin:0; color:var(--blueLt); font-size:.9rem}
+.themebtn{
+  position:absolute; top:18px; right:16px; background:rgba(255,255,255,.14);
+  border:0; color:#fff; border-radius:8px; padding:7px 11px; cursor:pointer; font-size:.85rem;
+}
+header{position:relative}
+
+nav{background:var(--card); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:5}
+nav .wrap{display:flex; gap:6px; overflow-x:auto; padding:10px 16px; scrollbar-width:thin}
+nav button{
+  flex:0 0 auto; border:1px solid var(--line); background:transparent; color:var(--muted);
+  border-radius:999px; padding:7px 15px; cursor:pointer; font-size:.88rem; font-weight:600;
+  white-space:nowrap;
+}
+nav button[aria-selected="true"]{background:var(--blue); border-color:var(--blue); color:#fff}
+
+main{padding:6px 0 60px}
+.searchbar{display:flex; align-items:center; gap:10px; padding-top:18px}
+.searchbar input{
+  flex:1; min-width:0; background:var(--card); color:var(--ink);
+  border:1px solid var(--line); border-radius:10px; padding:10px 13px; font-size:.92rem;
+  font-family:inherit;
+}
+.searchbar input:focus{outline:2px solid var(--blue); outline-offset:1px}
+#cnt{color:var(--muted); font-size:.82rem; flex:0 0 auto}
+.lead .fc{font-size:.86rem; opacity:.9}
+.intro{margin:-6px 0 16px}
+.lead{
+  background:var(--blueBg); border-left:4px solid var(--blue); border-radius:10px;
+  padding:13px 16px; margin:0 0 20px; font-size:.93rem; color:var(--navy2);
+}
+:root[data-theme="dark"] .lead,
+:root:not([data-theme="light"]) .lead{color:var(--ink)}
+h2{font-family:Cambria,Georgia,serif; font-size:1.18rem; margin:26px 0 4px; color:var(--blue)}
+.sub{margin:0 0 14px; color:var(--muted); font-size:.88rem}
+
+.grid{display:grid; gap:10px; grid-template-columns:repeat(auto-fill,minmax(248px,1fr))}
+.w{
+  background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:12px 13px; display:flex; align-items:center; gap:11px;
+}
+.w .txt{flex:1; min-width:0}
+.w b{display:block; font-size:1.05rem; font-weight:700; color:var(--ink); word-break:break-word}
+.txt .ipa{display:block; font-size:.9rem; color:var(--blue); font-family:'Segoe UI',sans-serif}
+.txt .vi{display:block; font-size:.82rem; color:var(--muted)}
+.spk{
+  flex:0 0 auto; width:42px; height:42px; border-radius:50%; border:0; cursor:pointer;
+  background:var(--blue); color:#fff; font-size:1.1rem; display:grid; place-items:center;
+  transition:transform .12s;
+}
+.spk:hover{transform:scale(1.07)}
+.spk:disabled{opacity:.45; cursor:progress}
+.spk.tts{background:var(--muted)}
+.cam{
+  flex:0 0 auto; font-size:.72rem; color:var(--muted); text-decoration:none;
+  border:1px solid var(--line); border-radius:7px; padding:4px 7px; line-height:1.2; text-align:center;
+}
+.cam:hover{color:var(--blue); border-color:var(--blue)}
+
+.pair{
+  grid-column:1 / -1;
+  background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:12px 15px; display:flex; align-items:center; gap:14px;
+}
+.pair .side{display:flex; align-items:center; gap:10px; flex:1 1 0; min-width:0}
+.pair .vs{color:var(--orange); font-weight:700; font-size:.8rem; flex:0 0 auto; letter-spacing:.04em}
+@media(max-width:560px){
+  .pair{flex-direction:column; align-items:stretch; gap:8px}
+  .pair .vs{text-align:center}
+}
+
+.note{
+  margin-top:26px; background:var(--card); border:1px solid var(--line);
+  border-left:4px solid var(--orange); border-radius:10px; padding:13px 16px; font-size:.88rem;
+}
+.note b{color:var(--orange)}
+footer{text-align:center; color:var(--muted); font-size:.8rem; padding:26px 16px 40px}
+footer a{color:var(--blue)}
+.soon{color:var(--muted); font-style:italic; padding:24px 0}
+@media(max-width:480px){
+  .cam{display:none}
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Phòng nghe</h1>
+    <p>English for Doctors · nghe lại phát âm chuẩn từ điển</p>
+  </div>
+  <button class="themebtn" id="tbtn">🌙 Tối</button>
+</header>
+
+<nav><div class="wrap" id="tabs" role="tablist"></div></nav>
+
+<div class="wrap searchbar">
+  <input id="q" type="search" placeholder="Tìm từ trong buổi này… (ví dụ: patient)" autocomplete="off">
+  <span id="cnt"></span>
+</div>
+
+<main class="wrap" id="body"></main>
+
+<footer>
+  Nhấn vòng tròn xanh để nghe. Nút xám là giọng máy của trình duyệt — khi từ điển chưa có bản thu.<br>
+  Bản thu chuẩn luôn có ở
+  <a href="https://dictionary.cambridge.org/" target="_blank" rel="noopener">Cambridge Dictionary</a>.
+</footer>
+
+<script>
+/* ---------- NỘI DUNG (sinh từ 24 slide bài giảng) ---------- */
+const L = {"1":{"no":1,"name":"Phụ âm cuối","focus":"/t/  /d/  /k/  /l/  ở cuối từ","goal":"Giao tiếp hàng ngày (G1) — Giới thiệu bản thân","intro":"Đọc lại bảng dưới đây trước khi làm bài. Nếu quên vị trí lưỡi, mở slide Buổi 1 xem lại hình mặt cắt.","blocks":[{"h":"Cặp dễ nhầm","s":"Hai từ nghe gần giống nhau. Nghe lần lượt, chú ý đúng chỗ khác nhau.","pairs":[[["heart","/hɑːt/","tim"],["hard","/hɑːd/","cứng (a hard lump)"]],[["cold","/kəʊld/","cảm lạnh"],["coal","/kəʊl/","than đá"]],[["back","/bæk/","lưng"],["bag","/bæɡ/","túi"]],[["pain","/peɪn/","cơn đau"],["pay","/peɪ/","trả tiền"]],[["white","/waɪt/","trắng"],["why","/waɪ/","tại sao"]],[["ward","/wɔːd/","buồng bệnh"],["war","/wɔː/","chiến tranh"]],[["heal","/hiːl/","chữa lành"],["he","/hiː/","anh ấy"]],[["felt","/felt/","đã cảm thấy"],["fell","/fel/","đã ngã"]],[["sick","/sɪk/","ốm"],["sit","/sɪt/","ngồi"]],[["bed","/bed/","giường bệnh"],["bet","/bet/","cá cược"]]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["cardiologist","/ˌkɑːdiˈɒlədʒɪst/","bác sĩ tim mạch"],["paediatrician","/ˌpiːdiəˈtrɪʃn/","bác sĩ nhi"],["surgeon","/ˈsɜːdʒən/","bác sĩ phẫu thuật"],["radiologist","/ˌreɪdiˈɒlədʒɪst/","bác sĩ chẩn đoán hình ảnh"],["anaesthetist","/əˈniːsθətɪst/","bác sĩ gây mê"],["general practitioner","/ˈdʒenrəl prækˈtɪʃənə/","bác sĩ đa khoa"],["internal medicine","/ɪnˈtɜːnl ˈmedsn/","nội khoa"],["department","/dɪˈpɑːtmənt/","khoa"],["I have been practising for 15 years.","/aɪ həv bɪn ˈpræktɪsɪŋ…/","Tôi đã hành nghề 15 năm."]]}]},"2":{"no":2,"name":"Đuôi -s: \"two patients\" chứ không phải \"two patient\"","focus":"/s/   /z/   /ɪz/","goal":"Giao tiếp hàng ngày (G1) — Mô tả công việc","intro":"Nhìn ÂM CUỐI của từ gốc, KHÔNG nhìn chữ cái cuối. Đây là nguyên tắc quan trọng nhất.","blocks":[{"h":"Nhóm /s/","s":"Sau âm vô thanh: p, t, k, f, th.","words":[["patients","/ˈpeɪʃnts/","bệnh nhân"],["shots","/ʃɒts/","mũi tiêm"],["scripts","/skrɪpts/","đơn thuốc"],["charts","/tʃɑːts/","bệnh án"],["tests","/tests/","xét nghiệm"],["results","/rɪˈzʌlts/","kết quả"]]},{"h":"Nhóm /z/","s":"Sau âm hữu thanh và nguyên âm.","words":[["lungs","/lʌŋz/","phổi"],["bones","/bəʊnz/","xương"],["drugs","/drʌɡz/","thuốc"],["veins","/veɪnz/","tĩnh mạch"],["pills","/pɪlz/","viên thuốc"],["scans","/skænz/","phim chụp"]]},{"h":"Nhóm /ɪz/ — thêm một âm tiết","s":"Sau s, z, sh, ch, ge. Đặt tay dưới cằm: nói \"case\" cằm hạ một lần, nói \"cases\" phải hạ hai lần.","words":[["doses","/ˈdəʊsɪz/","liều"],["cases","/ˈkeɪsɪz/","ca bệnh"],["nurses","/ˈnɜːsɪz/","điều dưỡng"],["syringes","/sɪˈrɪndʒɪz/","bơm kim tiêm"],["bandages","/ˈbændɪdʒɪz/","băng gạc"],["crutches","/ˈkrʌtʃɪz/","nạng"]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["ward round","/wɔːd raʊnd/","đi buồng"],["shift","/ʃɪft/","ca trực"],["on call","/ɒn kɔːl/","trực điện thoại"],["outpatient clinic","/ˈaʊtpeɪʃnt ˈklɪnɪk/","phòng khám ngoại trú"],["handover","/ˈhændəʊvə/","bàn giao ca"],["prescribe / prescription","/prɪˈskraɪb/ /prɪˈskrɪpʃn/","kê đơn / đơn thuốc"],["refer a patient","/rɪˈfɜː/","chuyển tuyến bệnh nhân"],["discharge a patient","/dɪsˈtʃɑːdʒ/","cho bệnh nhân xuất viện"],["follow-up appointment","/ˈfɒləʊ ʌp/","lịch tái khám"],["paperwork","/ˈpeɪpəwɜːk/","giấy tờ, hồ sơ"]]}]},"3":{"no":3,"name":"Đuôi -ed: kể lại ca bệnh hôm qua","focus":"/t/   /d/   /ɪd/","goal":"Giao tiếp hàng ngày & chuyên môn (G1, G2) — Kể ca bệnh","intro":"Chỉ có MỘT trường hợp thêm âm tiết: khi từ gốc kết thúc bằng /t/ hoặc /d/. Tất cả trường hợp còn lại KHÔNG thêm âm tiết nào.","blocks":[{"h":"Động từ trọng tâm","s":"Chú ý đuôi của dạng quá khứ.","words":[["helped","/helpt/","đã giúp"],["checked","/tʃekt/","đã kiểm tra"],["watched","/wɒtʃt/","đã theo dõi"],["prescribed","/prɪˈskraɪbd/","đã kê đơn"],["examined","/ɪɡˈzæmɪnd/","đã khám"],["referred","/rɪˈfɜːd/","đã chuyển tuyến"],["admitted","/ədˈmɪtɪd/","đã cho nhập viện"],["operated","/ˈɒpəreɪtɪd/","đã phẫu thuật"],["needed","/ˈniːdɪd/","đã cần"],["started","/ˈstɑːtɪd/","đã bắt đầu"]]},{"h":"Nguyên thể → quá khứ","s":"Chú ý đuôi của dạng quá khứ.","words":[["presented","/prɪˈzentɪd/","nhập viện với triệu chứng"],["complained","/kəmˈpleɪnd/","than phiền về"],["ordered / ran","/ˈɔːdəd/ /ræn/","chỉ định xét nghiệm"],["showed","/ʃəʊd/","cho thấy (kết quả)"],["improved","/ɪmˈpruːvd/","cải thiện"],["discharged","/dɪsˈtʃɑːdʒd/","cho xuất viện"]]}]},"4":{"no":4,"name":"Âm \"th\"","focus":"/θ/   và   /ð/","goal":"Giao tiếp hàng ngày (G1) — Khám bệnh","intro":"Hai âm này KHÔNG TỒN TẠI trong tiếng Việt. Khi LUYỆN: cố tình đẩy đầu lưỡi thò ra 2–3 mm và soi gương. Khi NÓI THẬT: chỉ cần đầu lưỡi tì nhẹ vào mép răng cửa trên.","blocks":[{"h":"Cặp dễ nhầm","s":"Hai từ nghe gần giống nhau. Nghe lần lượt, chú ý đúng chỗ khác nhau.","pairs":[[["three","/θriː/","số ba"],["tree","/triː/","cái cây"]],[["thigh","/θaɪ/","đùi"],["tie","/taɪ/","cà vạt"]],[["thick","/θɪk/","dày, đặc"],["tick","/tɪk/","con ve; dấu tick"]],[["thin","/θɪn/","mỏng, gầy"],["tin","/tɪn/","hộp thiếc"]],[["thank","/θæŋk/","cảm ơn"],["tank","/tæŋk/","bình chứa"]],[["path","/pɑːθ/","đường đi"],["pass","/pɑːs/","đi qua"]],[["tenth","/tenθ/","thứ mười"],["tense","/tens/","căng (bụng căng)"]],[["mouth","/maʊθ/","miệng"],["mouse","/maʊs/","con chuột"]],[["both","/bəʊθ/","cả hai"],["boat","/bəʊt/","con thuyền"]],[["teeth","/tiːθ/","răng"],["teethe","/tiːð/","mọc răng (v) — /θ/ ↔ /ð/"]]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["breath / breathe","/breθ/ /briːð/","hơi thở / thở"],["shortness of breath","/ˈʃɔːtnəs əv breθ/","khó thở"],["throat","/θrəʊt/","họng"],["thumb","/θʌm/","ngón cái"],["month / months","/mʌnθ/ /mʌnθs/","tháng / nhiều tháng"],["health check","/helθ tʃek/","khám sức khoẻ"],["therapy","/ˈθerəpi/","liệu pháp"],["swollen","/ˈswəʊlən/","sưng"]]}]},"5":{"no":5,"name":"Âm \"sh, ch, j\"","focus":"/ʃ/  /tʃ/  /dʒ/  (và /ʒ/)","goal":"Giao tiếp hàng ngày (G1) — Chỉ đường trong bệnh viện","intro":"Cả ba âm đều cần MÔI CHU TRÒN và lưỡi LÙI về sau so với /s/. Nếu quên vị trí lưỡi, mở slide Buổi 5 xem lại hình mặt cắt.","blocks":[{"h":"Cặp dễ nhầm","s":"Hai từ nghe gần giống nhau. Nghe lần lượt, chú ý đúng chỗ khác nhau.","pairs":[[["shock","/ʃɒk/","sốc (điện giật, sốc phản vệ)"],["sock","/sɒk/","chiếc tất"]],[["chart","/tʃɑːt/","bệnh án"],["cart","/kɑːt/","xe đẩy (thuốc, đồ ăn)"]],[["chin","/tʃɪn/","cằm"],["shin","/ʃɪn/","cẳng chân (xương ống đồng)"]],[["cheap","/tʃiːp/","rẻ (tiền)"],["sheep","/ʃiːp/","con cừu — hỏi bệnh nhân mất ngủ \"counting sheep?\""]],[["jaw","/dʒɔː/","quai hàm"],["your","/jɔː/","của bạn"]],[["gel","/dʒel/","gel siêu âm (ultrasound gel)"],["sell","/sel/","bán"]]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["corridor","/ˈkɒrɪdɔː/","hành lang"],["floor","/flɔː/","tầng"],["lift","/lɪft/","thang máy"],["staircase","/ˈsteəkeɪs/","cầu thang bộ"],["reception","/rɪˈsepʃn/","quầy lễ tân"],["nurse's station","/ˈnɜːsɪz ˈsteɪʃn/","trạm điều dưỡng"],["X-ray department","/ˈeksreɪ dɪˈpɑːtmənt/","khoa X-quang"],["push / pull","/pʊʃ/ /pʊl/","đẩy / kéo (cửa)"],["entrance / exit","/ˈentrəns/ /ˈeksɪt/","lối vào / lối ra"],["straight ahead","/streɪt əˈhed/","đi thẳng"]]}]},"6":{"no":6,"name":"/iː/ dài và /ɪ/ ngắn","focus":"/iː/   /ɪ/   +   ôn tập Buổi 1–5","goal":"Giao tiếp hàng ngày (G1) — Mini test 1","intro":"Cảnh báo quan trọng: \"sheet\" /ʃiːt/ đọc ngắn thành /ʃɪt/ sẽ ra một từ TỤC. Đây là lỗi duy nhất trong Module 1 có thể gây xấu hổ thật ngoài đời.","blocks":[{"h":"Từ trọng tâm","s":"Trọng tâm phát âm của buổi này.","words":[["dose – doesn't","/dəʊs/",""]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["self-introduction","/ˌself ɪntrəˈdʌkʃn/","phần giới thiệu bản thân"],["case presentation","/keɪs ˌprezenˈteɪʃn/","trình bày ca bệnh"],["symptom","/ˈsɪmptəm/","triệu chứng"],["diagnosis","/ˌdaɪəɡˈnəʊsɪs/","chẩn đoán"],["treatment plan","/ˈtriːtmənt plæn/","phác đồ điều trị"],["clean sheet","/kliːn ʃiːt/","ga giường sạch"],["heal / healing","/hiːl/ /ˈhiːlɪŋ/","lành / quá trình lành"],["discharge summary","/dɪsˈtʃɑːdʒ ˈsʌməri/","giấy xuất viện"],["follow-up","/ˈfɒləʊ ʌp/","tái khám"],["feedback","/ˈfiːdbæk/","nhận xét, phản hồi"]]},{"h":"Rà soát chéo","s":"Cặp từ trong bài tập nghe của buổi. Nghe rồi tự kiểm tra.","pairs":[[["heal","/hiːl/","→ đồi"],["hill","/hɪl/",""]],[["leave","/liːv/","→ rời đi"],["live","/lɪv/",""]],[["feel","/fiːl/","→ đổ đầy"],["fill","/fɪl/",""]],[["sleep","/sliːp/","→ ngủ"],["slip","/slɪp/",""]],[["beat","/biːt/","→ một chút"],["bit","/bɪt/",""]]]}]},"7":{"no":7,"name":"Ba nguyên âm hay bị gộp làm một","focus":"/æ/   /e/   /ʌ/","goal":"Tiếng Anh với vợ con (G4) — English Hour","intro":"Độ MỞ HÀM giảm dần theo thứ tự /æ/ → /e/ → /ʌ/. Luyện theo bộ ba liên tiếp để cảm nhận sự thay đổi.","blocks":[{"h":"Từ trọng tâm","s":"Trọng tâm phát âm của buổi này.","words":[["bad","/bæd/",""],["bed","/bed/",""],["bud","/bʌd/",""],["band","/bænd/",""],["bend","/bend/",""],["bund","/bʌnd/",""],["ham","/hæm/",""],["hem","/hem/",""],["hum","/hʌm/",""],["bat","/bæt/",""],["bet","/bet/",""],["but","/bʌt/",""],["cat","/kæt/",""],["cut","/kʌt/",""]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["Time to get up!","/taɪm tə ɡet ʌp/","Dậy thôi con!"],["Brush your teeth.","/brʌʃ jɔː tiːθ/","Đánh răng đi con."],["Put on your shoes.","/pʊt ɒn jɔː ʃuːz/","Đi giày vào con."],["Let's go to the park.","/lets ɡəʊ tə ðə pɑːk/","Mình ra công viên nhé."],["Be careful!","/biː ˈkeəfl/","Cẩn thận nhé!"],["I'm proud of you.","/aɪm praʊd əv juː/","Bố tự hào về con."],["Time for bed.","/taɪm fə bed/","Đến giờ đi ngủ rồi."],["Good night, sleep well.","/ɡʊd naɪt sliːp wel/","Chúc con ngủ ngon."]]}]},"8":{"no":8,"name":"Cụm phụ âm","focus":"Cụm đầu: str-, spl-, scr-   ·   Cụm cuối: -xths, -nths, -kt","goal":"Tiếng Anh với gia đình khi đi chơi (G4) — Ở sân bay","intro":"Lỗi lớn nhất là CHÈN NGUYÊN ÂM vào giữa cụm phụ âm (\"sờ-tress\"). Cách sửa: nói cụm liền một hơi, không hé môi ở giữa.","blocks":[{"h":"Từ trọng tâm","s":"Trọng tâm phát âm của buổi này.","words":[["stop","/stɒp/",""],["stress","/stres/",""],["strength","/streŋθ/",""],["spine","/spaɪn/",""],["splint","/splɪnt/",""],["sprain","/spreɪn/",""],["scan","/skæn/",""],["screen","/skriːn/",""],["scrub","/skrʌb/",""]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["check-in","/ˈtʃek ɪn/","làm thủ tục"],["boarding pass","/ˈbɔːdɪŋ pɑːs/","thẻ lên máy bay"],["carry-on","/ˈkæri ɒn/","hành lý xách tay"],["checked bag / luggage","/tʃekt bæɡ/ /ˈlʌɡɪdʒ/","hành lý ký gửi"],["boarding gate","/ˈbɔːdɪŋ ɡeɪt/","cổng ra máy bay"],["seats together","/siːts təˈɡeðə/","chỗ ngồi cạnh nhau"],["on time / delayed","/ɒn taɪm/ /dɪˈleɪd/","đúng giờ / trễ giờ"],["security check","/sɪˈkjʊərəti tʃek/","kiểm tra an ninh"],["passport control","/ˈpɑːspɔːt kənˈtrəʊl/","kiểm tra hộ chiếu"],["departure / arrival","/dɪˈpɑːtʃə/ /əˈraɪvl/","khởi hành / đến nơi"]]}]},"9":{"no":9,"name":"Schwa /ə/","focus":"/ə/","goal":"Tiếng Anh với gia đình & du lịch (G4) — Khách sạn","intro":"Nguyên tắc vàng: âm tiết KHÔNG có trọng âm hầu như luôn thành /ə/. Đọc lại bảng dưới trước khi làm bài.","blocks":[{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["reservation","/ˌrezəˈveɪʃn/","đặt phòng"],["reception / front desk","/rɪˈsepʃn/ /frʌnt desk/","quầy lễ tân"],["check-in / check-out","/ˈtʃek ɪn/ /ˈtʃek aʊt/","nhận phòng / trả phòng"],["extra bed","/ˈekstrə bed/","giường phụ"],["included","/ɪnˈkluːdɪd/","được bao gồm"],["children's menu","/ˈtʃɪldrənz ˈmenjuː/","thực đơn trẻ em"],["recommend","/ˌrekəˈmend/","gợi ý, giới thiệu"],["nearby","/ˌnɪəˈbaɪ/","gần đây"],["luggage / suitcase","/ˈlʌɡɪdʒ/ /ˈsuːtkeɪs/","hành lý / va li"],["under the name…","/ˈʌndə ðə neɪm/","dưới tên…"]]}]},"10":{"no":10,"name":"Trọng âm từ (1): danh từ y khoa dài + Nhà hàng","focus":"Trọng âm từ","goal":"Tiếng Anh với gia đình & du lịch (G4) — Nhà hàng","intro":"Trọng âm = âm tiết to hơn, dài hơn, cao hơn. Các âm tiết còn lại tụt thành /ə/ (nối lại buổi 9).","blocks":[{"h":"Từ trọng tâm","s":"Trọng tâm phát âm của buổi này.","words":[["diagnosis","/ˌdaɪəɡˈnəʊsɪs/","chẩn đoán (danh từ)"],["diagnose","/ˈdaɪəɡnəʊz/","chẩn đoán (động từ)"],["symptom","/ˈsɪmptəm/","triệu chứng"],["treatment","/ˈtriːtmənt/","điều trị"],["infection","/ɪnˈfekʃn/","nhiễm trùng"],["anaesthesia","/ˌænəsˈθiːziə/","gây mê"],["hypertension","/ˌhaɪpəˈtenʃn/","tăng huyết áp"],["pneumonia","/njuːˈməʊniə/","viêm phổi"],["diabetes","/ˌdaɪəˈbiːtiːz/","tiểu đường"]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["table for four","/ˈteɪbl fə fɔː/","bàn cho bốn người"],["children's menu","/ˈtʃɪldrənz ˈmenjuː/","thực đơn trẻ em"],["highchair","/ˈhaɪtʃeə/","ghế cao cho trẻ nhỏ"],["nut allergy","/nʌt ˈælədʒi/","dị ứng hạt"],["allergic","/əˈlɜːdʒɪk/","dị ứng (với)"],["starter / main course","/ˈstɑːtə/ /meɪn kɔːs/","khai vị / món chính"],["dessert","/dɪˈzɜːt/","món tráng miệng"],["waiter / waitress","/ˈweɪtə/ /ˈweɪtrəs/","phục vụ nam / nữ"],["bill","/bɪl/","hoá đơn"],["recommend a dish","/ˌrekəˈmend ə dɪʃ/","gợi ý món ăn"]]}]},"11":{"no":11,"name":"Trọng âm từ (2): quy tắc hậu tố + Mua sắm & khẩn cấp","focus":"Trọng âm theo hậu tố","goal":"Tiếng Anh với gia đình & du lịch (G4) — Khẩn cấp","intro":"\"-ate\" (động từ) KHÔNG phải luôn nhấn âm đầu — quy tắc thật là \"âm tiết thứ 3 tính từ cuối\".","blocks":[{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["a smaller size","/ə ˈsmɔːlə saɪz/","cỡ nhỏ hơn"],["pay by card / cash","/peɪ baɪ kɑːd/ /kæʃ/","trả bằng thẻ / tiền mặt"],["clinic","/ˈklɪnɪk/","phòng khám"],["ambulance","/ˈæmbjələns/","xe cứu thương"],["fall (fell) and hurt","/fɔːl/ /fel/ /hɜːt/","ngã và bị đau"],["allergic to penicillin","/əˈlɜːdʒɪk tə ˌpenɪˈsɪlɪn/","dị ứng penicillin"],["nearby","/ˌnɪəˈbaɪ/","gần đây"],["Let me help","/let miː help/","để tôi giúp"],["emergency room","/ɪˈmɜːdʒənsi ruːm/","phòng cấp cứu"],["X-ray / scan","/ˈeksreɪ/ /skæn/","chụp X-quang / chụp chiếu"]]}]},"12":{"no":12,"name":"Nguyên âm đôi /eɪ/ /aɪ/ /ɔɪ/ + Ôn tập Module 2","focus":"/eɪ/   /aɪ/   /ɔɪ/","goal":"Tiếng Anh với gia đình & du lịch (G4) — Mini Test 2","intro":"Nguyên âm đôi = trượt từ âm này sang âm kia trong MỘT âm tiết. Người Việt thường dừng ở âm đầu.","blocks":[{"h":"Từ trọng tâm","s":"Trọng tâm phát âm của buổi này.","words":[["pain","/peɪn/","cơn đau"],["take","/teɪk/","lấy, uống (thuốc)"],["stable","/ˈsteɪbl/","ổn định"],["spine","/spaɪn/","cột sống"],["right","/raɪt/","đúng, bên phải"],["diagnose","/ˈdaɪəɡnəʊz/","chẩn đoán"],["joint","/dʒɔɪnt/","khớp"],["avoid","/əˈvɔɪd/","tránh"]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["X-ray","/ˈeksreɪ/","X-quang"],["IV","/ˌaɪ ˈviː/","truyền tĩnh mạch"],["point","/pɔɪnt/","điểm, chỉ vào"],["noise","/nɔɪz/","tiếng ồn"]]}]},"13":{"no":13,"name":"Bốn nguyên âm đôi còn lại","focus":"/əʊ/  /aʊ/  /ɪə/  /eə/","goal":"Giao tiếp với giáo sư/đồng nghiệp nước ngoài (G2) — Email học thuật","intro":"Nhìn hướng TRƯỢT của lưỡi và môi, không phải một vị trí cố định. Nếu quên, mở lại slide Buổi 13 xem sơ đồ.","blocks":[{"h":"Cặp dễ nhầm","s":"Hai từ nghe gần giống nhau. Nghe lần lượt, chú ý đúng chỗ khác nhau.","pairs":[[["note","/nəʊt/","ghi chú (bệnh án)"],["not","/nɒt/","không"]],[["coat","/kəʊt/","áo blouse, áo khoác"],["cot","/kɒt/","giường cũi (khoa nhi)"]],[["found","/faʊnd/","đã tìm thấy (kết quả)"],["fond","/fɒnd/","yêu thích"]],[["now","/naʊ/","bây giờ"],["no","/nəʊ/","không — đổi hẳn nghĩa câu trả lời"]],[["dear","/dɪə/","thân mến — mở đầu email"],["dare","/deə/","dám (làm gì đó)"]],[["ear","/ɪə/","tai"],["air","/eə/","không khí"]]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["dose","/dəʊs/","liều (thuốc)"],["bone","/bəʊn/","xương"],["protocol","/ˈprəʊtəkɒl/","phác đồ, quy trình"],["nose","/nəʊz/","mũi"],["mouth","/maʊθ/","miệng"],["round","/raʊnd/","đi buồng (vòng khám bệnh)"],["year","/jɪə/","năm"],["serious","/ˈsɪəriəs/","nghiêm trọng"],["aware","/əˈweə/","biết, nhận thức được"],["healthcare","/ˈhelθkeə/","chăm sóc sức khoẻ"]]},{"h":"Rà soát chéo","s":"Cặp từ trong bài tập nghe của buổi. Nghe rồi tự kiểm tra.","pairs":[[["pound","/paʊnd/","→ ao"],["pond","/pɒnd/",""]],[["so","/səʊ/","→ đã nhìn thấy"],["saw","/sɔː/",""]],[["hear","/hɪə/","→ tóc"],["hair","/heə/",""]],[["fear","/fɪə/","→ xa"],["far","/fɑː/",""]]]}]},"14":{"no":14,"name":"/l/ đầu và /l/ cuối","focus":"Light L (đầu từ)   vs   Dark L (cuối từ)","goal":"Giao tiếp với giáo sư/đồng nghiệp nước ngoài (G2) — Hỏi & thảo luận học thuật","intro":"Cả hai vị trí đều CHẠM gờ lợi bằng đầu lưỡi — khác nhau ở việc GỐC lưỡi có kéo lùi và nâng lên hay không.","blocks":[{"h":"Từ trọng tâm","s":"Trọng tâm phát âm của buổi này.","words":[["feel","/fiːl/","sờ, cảm thấy"],["fee","/fiː/","sờ, cảm thấy"],["normal","/ˈnɔːml/","bình thường"],["Norman","/ˈnɔːmən/","bình thường"],["hospital","/ˈhɒspɪtl/","bệnh viện"],["hospita","/ˈhɒspɪtə/","bệnh viện"],["control","/kənˈtrəʊl/","kiểm soát"],["controw","/kənˈtrəʊ/","kiểm soát"],["clinical","/ˈklɪnɪkl/","thuộc lâm sàng"],["clinicaw","/ˈklɪnɪkə/","thuộc lâm sàng"],["careful","/ˈkeəfl/","cẩn thận"],["carefun","/ˈkeəfən/","cẩn thận"]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["lung","/lʌŋ/","phổi"],["level","/ˈlevl/","mức độ, chỉ số"],["life","/laɪf/","sự sống, cuộc sống"],["lab","/læb/","phòng xét nghiệm"],["medical","/ˈmedɪkl/","thuộc về y khoa"]]},{"h":"Rà soát chéo","s":"Cặp từ trong bài tập nghe của buổi. Nghe rồi tự kiểm tra.","pairs":[[["peel","/piːl/","→ đậu Hà Lan"],["pea","/piː/",""]],[["call","/kɔːl/","→ gọi"],["core","/kɔː/",""]],[["right","/raɪt/",""],["light","/laɪt/",""]],[["lit","/lɪt/","→ đã thắp sáng"],["it","/ɪt/",""]],[["pill","/pɪl/","→ viên thuốc"],["pit","/pɪt/",""]]]}]},"15":{"no":15,"name":"/r/ không rung, không chạm","focus":"/r/   và   /w/","goal":"Giao tiếp với giáo sư/đồng nghiệp nước ngoài (G2) — Case presentation","intro":"Điểm khác biệt lớn nhất với tiếng Việt: /r/ tiếng Anh KHÔNG rung, KHÔNG chạm vào đâu cả.","blocks":[{"h":"Cặp dễ nhầm","s":"Hai từ nghe gần giống nhau. Nghe lần lượt, chú ý đúng chỗ khác nhau.","pairs":[[["rash","/ræʃ/","phát ban (da)"],["lash","/læʃ/","lông mi / roi (đánh roi)"]],[["right","/raɪt/","đúng, bên phải"],["light","/laɪt/","nhẹ, ánh sáng"]],[["wait","/weɪt/","đợi"],["rate","/reɪt/","nhịp, tỉ lệ — như trong \"heart rate\""]],[["wed","/wed/","kết hôn"],["red","/red/","màu đỏ"]],[["wear","/weə/","mặc, đeo"],["rare","/reə/","hiếm (bệnh hiếm)"]],[["west","/west/","hướng tây"],["rest","/rest/","nghỉ ngơi"]]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["result","/rɪˈzʌlt/","kết quả"],["respiratory","/rəˈspɪrətri/","thuộc hô hấp"],["operation","/ˌɒpəˈreɪʃn/","ca phẫu thuật"],["emergency","/ɪˈmɜːdʒənsi/","cấp cứu"],["wound","/wuːnd/","vết thương"],["ward","/wɔːd/","buồng bệnh"],["water","/ˈwɔːtə/","nước"],["weak","/wiːk/","yếu"],["one","/wʌn/","một"]]},{"h":"Rà soát chéo","s":"Cặp từ trong bài tập nghe của buổi. Nghe rồi tự kiểm tra.","pairs":[[["row","/rəʊ/","→ chèo thuyền / xếp hàng"],["low","/ləʊ/",""]],[["read","/riːd/","→ dẫn dắt"],["lead","/liːd/",""]],[["won","/wʌn/","→ đã thắng"],["run","/rʌn/",""]],[["wing","/wɪŋ/","→ chuông, gọi điện"],["ring","/rɪŋ/",""]]]}]},"16":{"no":16,"name":"Bật hơi mạnh đầu từ","focus":"Bật hơi /p/  /t/  /k/","goal":"Giao tiếp với giáo sư/đồng nghiệp nước ngoài (G2) — Small talk tại hội thảo","intro":"Cùng một phụ âm /p t k/ nhưng luồng hơi khác nhau tuỳ vị trí trong từ. Dùng tờ giấy mỏng để tự kiểm tra.","blocks":[{"h":"Cặp dễ nhầm","s":"Hai từ nghe gần giống nhau. Nghe lần lượt, chú ý đúng chỗ khác nhau.","pairs":[[["pain","/peɪn/","cơn đau"],["spine","/spaɪn/","cột sống"]],[["pulse","/pʌls/","mạch đập"],["spleen","/spliːn/","lá lách"]],[["tumour","/ˈtjuːmə/","khối u"],["stent","/stent/","giá đỡ mạch vành"]],[["test","/test/","xét nghiệm"],["stroke","/strəʊk/","đột quỵ"]],[["cough","/kɒf/","ho"],["scan","/skæn/","chụp/quét"]],[["kidney","/ˈkɪdni/","thận"],["skin","/skɪn/","da"]]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["pill","/pɪl/","viên thuốc"],["time","/taɪm/","thời gian"],["care","/keə/","chăm sóc"]]}]},"17":{"no":17,"name":"Nối âm phụ âm→nguyên âm","focus":"Nối âm phụ âm → nguyên âm (Linking C→V)","goal":"Nói với giáo sư/đồng nghiệp nước ngoài (G2) — Điện thoại & hội chẩn từ xa","intro":"Khi từ TRƯỚC kết thúc bằng PHỤ ÂM và từ SAU bắt đầu bằng NGUYÊN ÂM, hai từ dính liền nhau — không dừng giữa hai từ. Nếu quên, mở lại slide Buổi 17 xem lại sơ đồ.","blocks":[{"h":"Cụm nối âm","s":"Đọc cả cụm một hơi, không tách từng từ.","words":[["take a look","/teɪ-kə lʊk/","xem qua một chút"],["check up on","/tʃe-kʌ-pɒn/","kiểm tra tình hình (ai đó)"],["pick it up","/pɪ-kɪ-tʌp/","nhặt / nhận lấy"],["an operation","/ə-nɒpəreɪʃn/","một ca phẫu thuật"],["in an hour","/ɪ-nə-naʊə/","trong vòng một giờ nữa"],["find out","/faɪn-daʊt/","tìm hiểu ra"]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["landline","/ˈlændlaɪn/","điện thoại bàn"],["line","/laɪn/","đường truyền / đường dây"],["to hold the line","/həʊld ðə laɪn/","giữ máy"],["to hang up","/hæŋ ʌp/","cúp máy"],["to call back","/kɔːl bæk/","gọi lại"],["a lot of patients","/əˈlɒtəv ˈpeɪʃnts/","rất nhiều bệnh nhân"],["scan","/skæn/","ảnh chụp (CT, MRI…)"],["dosage","/ˈdəʊsɪdʒ/","liều lượng"],["remote consultation","/rɪˈməʊt ˌkɒnsəlˈteɪʃn/","hội chẩn từ xa"],["signal / connection","/ˈsɪɡnəl/ /kəˈnekʃn/","tín hiệu / kết nối"]]},{"h":"Rà soát chéo","s":"Cặp từ trong bài tập nghe của buổi. Nghe rồi tự kiểm tra.","pairs":[[["take a look →","/teɪ-kə lʊk/","→ nối — tự nhiên"],["take | a | look →","/teɪk ə lʊk/",""]],[["check up on →","/tʃe-kʌ-pɒn/","→ rời"],["check | up | on →","/tʃek ʌp ɒn/",""]],[["pick it up →","/pɪ-kɪ-tʌp/","→ nối"],["pick | it | up →","/pɪk ɪt ʌp/",""]],[["an operation →","/ə-nɒpəreɪʃn/","→ rời"],["an | operation →","/æn ɒpəreɪʃn/",""]],[["in an hour →","/ɪ-nə-naʊə/","→ nối"],["in | an | hour →","/ɪn æn aʊə/",""]],[["find out →","/faɪn-daʊt/","→ rời"],["find | out →","/faɪnd aʊt/",""]],[["a lot of patients →","/ə lɒ-təv peɪʃnts/","→ nối"],["a | lot | of | patients →","/ə lɒt ɒv peɪʃnts/",""]],[["check it out →","/tʃe-kɪ-taʊt/","→ rời"],["check | it | out →","/tʃek ɪt aʊt/",""]],[["speak up a bit →","/spiː-kʌ-pə bɪt/","→ nối"],["speak | up | a | bit →","/spiːk ʌp ə bɪt/",""]],[["hold on →","/həʊl-dɒn/","→ rời"],["hold | on →","/həʊld ɒn/",""]]]}]},"18":{"no":18,"name":"Dạng yếu (lược âm)","focus":"Dạng yếu (wanna/gonna/hafta, and→/ən/, of→/əv/, to→/tə/, can→/kən/)","goal":"Nói với giáo sư/đồng nghiệp nước ngoài (G2) — Ôn tập Module 3 + Mini test 3","intro":"Nguyên tắc cốt lõi: KHÔNG bắt buộc phải TỰ NÓI dạng yếu — chỉ cần NGHE RA và không bị khựng lại. Nếu quên, mở lại slide Buổi 18 xem lại bảng.","blocks":[{"h":"Dạng mạnh ↔ dạng yếu","s":"Nghe để NHẬN RA dạng yếu, không bắt buộc phải nói theo.","words":[["want to","/wɒnt tuː/",""],["wanna","/ˈwɒnə/",""],["going to","/ˈɡəʊɪŋ tuː/",""],["gonna","/ˈɡɒnə/",""],["have to","/hæv tuː/",""],["hafta","/ˈhæftə/",""],["did you","/dɪd juː/",""],["didja","/ˈdɪdʒə/",""],["and","/ænd/",""],["'n","/ən/",""],["for","/fɔː/",""],["fə","/fə/",""],["to","/tuː/",""],["tə","/tə/",""],["of","/ɒv/",""],["əv","/əv/",""],["can","/kæn/",""],["kən","/kən/",""]]},{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["weak form","/wiːk fɔːm/","dạng yếu"],["strong form","/strɒŋ fɔːm/","dạng mạnh"],["reduction","/rɪˈdʌkʃn/","sự rút gọn (âm)"],["function word","/ˈfʌŋkʃn wɜːd/","từ chức năng"],["content word","/ˈkɒntent wɜːd/","từ nội dung"],["case presentation","/keɪs ˌprezenˈteɪʃn/","trình bày ca bệnh"],["differential diagnosis","/ˌdɪfəˈrenʃl ˌdaɪəɡˈnəʊsɪs/","chẩn đoán phân biệt"],["management plan","/ˈmænɪdʒmənt plæn/","kế hoạch xử trí"],["follow-up question","/ˈfɒləʊ ʌp ˈkwestʃən/","câu hỏi thêm"],["examiner","/ɪɡˈzæmɪnə/","giám khảo / người hỏi thi"]]},{"h":"Rà soát chéo","s":"Cặp từ trong bài tập nghe của buổi. Nghe rồi tự kiểm tra.","pairs":[[["I have to go.","/aɪ hæv tuː ɡəʊ/","→ dạng mạnh"],["I hafta go.","/aɪ ˈhæftə ɡəʊ/",""]],[["We are going to start.","/wiː ɑː ˈɡəʊɪŋ tuː stɑːt/","→ dạng yếu"],["We're gonna start.","/wɪə ˈɡɒnə stɑːt/",""]],[["I want to check.","/aɪ wɒnt tuː tʃek/","→ dạng mạnh"],["I wanna check.","/aɪ ˈwɒnə tʃek/",""]],[["Did you check it?","/dɪd juː tʃek ɪt/","→ dạng yếu"],["Didja check it?","/ˈdɪdʒə tʃek ɪt/",""]],[["chart and results","/tʃɑːt ænd rɪˈzʌlts/","→ dạng mạnh"],["chart 'n results","/tʃɑːt ən rɪˈzʌlts/",""]],[["wait for the doctor","/weɪt fɔː ðə ˈdɒktə/","→ dạng yếu"],["wait fə the doctor","/weɪt fə ðə ˈdɒktə/",""]],[["talk to you","/tɔːk tuː juː/","→ dạng mạnh"],["talk tə you","/tɔːk tə juː/",""]],[["one of the cases","/wʌn ɒv ðə ˈkeɪsɪz/","→ dạng yếu"],["one əv the cases","/wʌn əv ðə ˈkeɪsɪz/",""]],[["What do you think?","/wɒt duː juː θɪŋk/","→ dạng yếu"],["Whatcha think?","/ˈwɒtʃə θɪŋk/",""]]]}]},"19":{"no":19,"name":"Nhịp điệu trọng âm","focus":"Nhịp điệu trọng âm (stress-timed rhythm)","goal":"Thuyết trình hội thảo (G3) — Cấu trúc bài thuyết trình 5 phút, 6 phần","intro":"Tiếng Việt: mỗi ÂM TIẾT đều nhau (syllable-timed). Tiếng Anh: khoảng cách GIỮA CÁC TRỌNG ÂM đều nhau (stress-timed) — từ chức năng bị NÉN lại để giữ nhịp. Nếu quên, mở lại slide Buổi 19.","blocks":[{"h":"Ba câu — cùng ba nhịp","s":"Câu dài hơn nhưng KHÔNG mất nhiều thời gian hơn. Chữ in hoa là chỗ được nhấn.","words":[["DOCTors TREAT PAtients.","3 nhịp","Bác sĩ điều trị bệnh nhân.","Doctors treat patients."],["The DOCTors have TREATed the PAtients.","3 nhịp","Các bác sĩ đã điều trị cho bệnh nhân.","The doctors have treated the patients."],["The DOCTors will have been TREATing all the PAtients.","3 nhịp","Các bác sĩ hẳn đã và đang điều trị cho tất cả bệnh nhân.","The doctors will have been treating all the patients."]]},{"h":"Khung bài thuyết trình 5 phút","s":"Sáu phần cố định. Nghe để quen nhịp mở đầu và chuyển ý.","words":[["Good morning. My name is…","Chào & giới thiệu · 30 giây",""],["Today I’d like to present…","Nêu chủ đề · 20 giây",""],["I’ll cover three points…","Bản đồ bài nói · 20 giây",""],["Let’s start with… Moving on to…","Nội dung chính · 3 phút",""],["To sum up, our data suggest…","Kết luận · 30 giây",""],["I’m happy to take any questions.","Mời hỏi · 20 giây",""]]}]},"20":{"no":20,"name":"Trọng âm câu","focus":"Trọng âm câu (sentence stress) — nhấn khác nhau, nghĩa khác nhau","goal":"Thuyết trình hội thảo (G3) — Mô tả biểu đồ & số liệu","intro":"Cùng một câu, nhấn từ khác nhau → nghĩa truyền tải khác hẳn. Đây là buổi hiếm hoi mà lỗi trọng âm có thể gây hậu quả lâm sàng thật. Nếu quên, mở lại slide Buổi 20.","blocks":[{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["x-axis","/ˈeks æksɪs/","trục hoành"],["y-axis","/ˈwaɪ æksɪs/","trục tung"],["increase sharply","/ɪnˈkriːs ˈʃɑːpli/","tăng mạnh"],["drop slightly","/drɒp ˈslaɪtli/","giảm nhẹ"],["remain stable","/rɪˈmeɪn ˈsteɪbl/","giữ ổn định"],["statistically significant","/stəˈtɪstɪkli sɪɡˈnɪfɪkənt/","có ý nghĩa thống kê"],["p-value","/piː ˈvæljuː/","giá trị p"],["roughly / approximately","/ˈrʌfli/ /əˈprɒksɪmətli/","khoảng chừng / xấp xỉ"],["one in four","/wʌn ɪn fɔː/","một trong bốn"],["survival rate","/səˈvaɪvl reɪt/","tỉ lệ sống sót"]]}]},"21":{"no":21,"name":"Ngữ điệu lên xuống","focus":"Ngữ điệu ↗ ↘ (intonation) theo 6 loại câu + Xử lý Q&A","goal":"Thuyết trình hội thảo (G3) — Ngữ điệu & xử lý câu hỏi","intro":"Ngữ điệu KHÔNG PHẢI gia vị — nó MANG THÔNG TIN về loại câu. Nếu quên, mở lại slide Buổi 21 xem lại bảng 6 loại câu.","blocks":[{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["audience","/ˈɔːdiəns/","khán giả, cử toạ"],["questioner","/ˈkwestʃənə/","người đặt câu hỏi"],["scope","/skəʊp/","phạm vi (nghiên cứu)"],["impression","/ɪmˈpreʃn/","ấn tượng, nhận định ban đầu"],["data","/ˈdeɪtə/","dữ liệu"],["setting","/ˈsetɪŋ/","bối cảnh (lâm sàng)"],["point","/pɔɪnt/","quan điểm, luận điểm"],["follow up","/ˈfɒləʊ ʌp/","liên hệ lại, theo dõi tiếp"],["moderator","/ˈmɒdəreɪtə/","người điều phối hội thảo"],["panel","/ˈpænl/","ban/nhóm diễn giả"]]}]},"22":{"no":22,"name":"Ngắt cụm theo nghĩa","focus":"Ngắt cụm theo nghĩa (chunking) + 3 chỗ nên dừng 1 giây","goal":"Thuyết trình hội thảo (G3) — Ngắt cụm & tổng duyệt bản nháp","intro":"Ngắt câu theo CỤM NGHĨA, không phải theo hơi thở hay dấu phẩy. Không bao giờ tách số khỏi danh từ/đơn vị đi kèm. Nếu quên, mở lại slide Buổi 22.","blocks":[{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["dry run","/draɪ rʌn/","buổi tổng duyệt"],["draft","/drɑːft/","bản nháp"],["feedback","/ˈfiːdbæk/","phản hồi, góp ý"],["pace","/peɪs/","tốc độ nói"],["pause","/pɔːz/","khoảng dừng"],["filler word","/ˈfɪlə wɜːd/","từ đệm (ừm, à)"],["time yourself","/taɪm jɔːˈself/","tự canh giờ"],["run over","/rʌn ˈəʊvə/","nói quá giờ"],["cut","/kʌt/","cắt bớt (một phần)"],["tighten","/ˈtaɪtn/","rút gọn, làm chặt (kịch bản)"]]}]},"23":{"no":23,"name":"Nhấn mạnh, làm chậm tốc độ & ngôn ngữ cơ thể","focus":"Nhấn mạnh chủ đích + chậm 30% ở số liệu/tên thuốc + thay \"ừm\" bằng im lặng","goal":"Thuyết trình hội thảo (G3) — Nhấn mạnh, tốc độ & ngôn ngữ cơ thể","intro":"Nhấn mạnh KHÔNG PHẢI là \"nói to hơn cả câu\" — mà là to hơn MỘT TỪ + kéo dài + dừng ngay trước từ đó. Nếu quên, mở lại slide Buổi 23.","blocks":[{"h":"Từ vựng y khoa","s":"Từ vựng chủ đề của buổi. Nghe rồi đọc theo.","words":[["eye contact","/aɪ ˈkɒntækt/","giao tiếp bằng mắt"],["posture","/ˈpɒstʃə/","tư thế đứng/ngồi"],["gesture","/ˈdʒestʃə/","cử chỉ tay"],["pointer","/ˈpɔɪntə/","bút chỉ, bút laser"],["slide deck","/slaɪd dek/","bộ slide"],["stand up straight","/stænd ʌp streɪt/","đứng thẳng lưng"],["make eye contact with","/meɪk aɪ ˈkɒntækt wɪð/","nhìn vào mắt (khán giả)"],["pace back and forth","/peɪs bæk ənd fɔːθ/","đi đi lại lại (nên tránh)"],["filler word","/ˈfɪlə wɜːd/","từ đệm (ừm, à)"],["confident tone","/ˈkɒnfɪdənt təʊn/","giọng nói tự tin"]]}]},"24":{"no":24,"name":"Tổng kết","focus":"Tổng ôn phát âm cả khoá + Rubric chấm nói (thang 5) + kế hoạch 30 ngày","goal":"Tổng kết cả 4 mục tiêu (G1–G2–G3–G4) — Thuyết trình chính thức & đo tiến bộ","intro":"Đây là buổi TỔNG KẾT — không có kiến thức mới. Chấm trung thực từng mục tiêu, đây là điểm khởi đầu cho lộ trình A2 → B1 tiếp theo.","blocks":[{"h":"Rà soát chéo","s":"Cặp từ trong bài tập nghe của buổi. Nghe rồi tự kiểm tra.","pairs":[[["heart","/hɑːt/","→ tim"],["hard","/hɑːd/",""]],[["three","/θriː/","→ cái cây"],["tree","/triː/",""]],[["feel","/fiːl/","→ cảm thấy"],["fill","/fɪl/",""]],[["right","/raɪt/",""],["light","/laɪt/",""]],[["pill","/pɪl/","→ viên thuốc"],["peel","/piːl/",""]],[["wet","/wet/","→ bác sĩ thú y"],["vet","/vet/",""]],[["chest","/tʃest/","→ lồng ngực"],["test","/test/",""]],[["cold","/kəʊld/","→ đã gọi"],["called","/kɔːld/",""]],[["sick","/sɪk/","→ ốm"],["thick","/θɪk/",""]],[["shot","/ʃɒt/","→ nóng, sốt"],["hot","/hɒt/",""]]]}]}};
+const TOTAL = 24;
+
+/* ---------- PHÁT ÂM ---------- */
+const cache = new Map();
+
+/* Chỉ gọi từ điển cho từ đơn. Cụm nhiều từ dùng giọng máy. */
+async function dictAudio(word){
+  if (cache.has(word)) return cache.get(word);
+  let url = null;
+  if (/^[a-zA-Z'-]+$/.test(word)) {
+    try{
+      const r = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/'
+                            + encodeURIComponent(word.toLowerCase()));
+      if (r.ok) {
+        const d = await r.json();
+        const ph = [];
+        for (const e of (Array.isArray(d) ? d : [])) for (const p of (e.phonetics || [])) {
+          if (p && p.audio) ph.push(p.audio);
+        }
+        /* ưu tiên bản thu Anh-Anh */
+        url = ph.find(u => /-uk\.|\/uk\//i.test(u)) || ph[0] || null;
+      }
+    }catch(e){ url = null; }
+  }
+  cache.set(word, url);
+  return url;
+}
+
+let voice = null;
+function pickVoice(){
+  const vs = speechSynthesis.getVoices();
+  voice = vs.find(v => v.lang === 'en-GB') || vs.find(v => v.lang && v.lang.startsWith('en')) || null;
+}
+if (window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+
+function speak(word){
+  if (!window.speechSynthesis) return false;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang = 'en-GB'; u.rate = .82;
+  if (voice) u.voice = voice;
+  speechSynthesis.speak(u);
+  return true;
+}
+
+async function play(btn, word){
+  btn.disabled = true;
+  const prev = btn.textContent;
+  btn.textContent = '⋯';
+  const url = await dictAudio(word);
+  btn.disabled = false;
+  if (url){
+    btn.classList.remove('tts');
+    btn.textContent = '🔊';
+    const a = new Audio(url);
+    a.play().catch(() => { btn.classList.add('tts'); btn.textContent = '🔉'; speak(word); });
+  } else {
+    btn.classList.add('tts');
+    btn.textContent = '🔉';
+    if (!speak(word)) btn.textContent = prev;
+  }
+}
+
+/* ---------- DỰNG TRANG ---------- */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+/* dùng ô tìm trực tiếp của Cambridge: an toàn với cả từ số nhiều / chia thì */
+const camUrl = w => 'https://dictionary.cambridge.org/search/english/direct/?q='
+  + encodeURIComponent(w.toLowerCase().trim());
+
+function node([word, ipa, vi, say], cls){
+  const d = document.createElement('div'); d.className = cls;
+  const single = /^[a-zA-Z'’-]+$/.test(word);
+  d.innerHTML =
+    '<button class="spk" aria-label="Nghe ' + esc(word) + '">🔊</button>' +
+    '<div class="txt"><b>' + esc(word) + '</b>' +
+      '<span class="ipa">' + esc(ipa || '') + '</span>' +
+      '<span class="vi">' + esc(vi || '') + '</span></div>' +
+    (single && cls === 'w'
+      ? '<a class="cam" target="_blank" rel="noopener" href="' + camUrl(word) + '">Cam<br>bridge</a>'
+      : '');
+  const txt = say || word;
+  d.querySelector('.spk').addEventListener('click', e => play(e.currentTarget, txt));
+  return d;
+}
+
+function render(no){
+  const body = document.getElementById('body');
+  body.innerHTML = '';
+  const les = L[no];
+  if (!les){ body.innerHTML = '<p class="soon">Buổi này chưa có nội dung nghe.</p>'; return; }
+
+  const lead = document.createElement('div');
+  lead.className = 'lead';
+  lead.innerHTML = '<b>Buổi ' + les.no + ' — ' + esc(les.name) + '</b><br>'
+    + '<span class="fc">Trọng tâm: ' + esc(les.focus) + '</span>'
+    + (les.goal ? '<br><span class="fc">' + esc(les.goal) + '</span>' : '');
+  body.appendChild(lead);
+
+  if (les.intro){
+    const i = document.createElement('p'); i.className = 'sub intro'; i.textContent = les.intro;
+    body.appendChild(i);
+  }
+
+  for (const b of les.blocks){
+    const h = document.createElement('h2'); h.textContent = b.h; body.appendChild(h);
+    if (b.s){ const s = document.createElement('p'); s.className = 'sub'; s.textContent = b.s; body.appendChild(s); }
+    const g = document.createElement('div'); g.className = 'grid';
+    for (const w of (b.words || [])) g.appendChild(node(w, 'w'));
+    for (const [x, y] of (b.pairs || [])){
+      const p = document.createElement('div'); p.className = 'pair';
+      p.appendChild(node(x, 'side'));
+      const vs = document.createElement('span'); vs.className = 'vs'; vs.textContent = 'vs';
+      p.appendChild(vs);
+      p.appendChild(node(y, 'side'));
+      g.appendChild(p);
+    }
+    body.appendChild(g);
+  }
+
+  const n = document.createElement('div'); n.className = 'note';
+  n.innerHTML = '<b>Cách luyện:</b> nghe một từ ba lần, rồi tự đọc lại và ghi âm bằng điện thoại. '
+    + 'Nghe bản ghi của mình cạnh bản từ điển — chỗ khác nhau nghe ra ngay.';
+  body.appendChild(n);
+  filter();
+}
+
+/* ---------- TÌM TỪ ---------- */
+function filter(){
+  const q = (document.getElementById('q').value || '').trim().toLowerCase();
+  let hits = 0;
+  for (const card of document.querySelectorAll('#body .w, #body .pair')){
+    const show = !q || card.textContent.toLowerCase().includes(q);
+    card.style.display = show ? '' : 'none';
+    if (show) hits++;
+  }
+  for (const h of document.querySelectorAll('#body h2')){
+    let el = h.nextElementSibling, grid = null;
+    while (el && !grid){ if (el.classList.contains('grid')) grid = el; el = el.nextElementSibling; }
+    const vis = grid && [...grid.children].some(c => c.style.display !== 'none');
+    h.style.display = vis ? '' : 'none';
+    if (h.nextElementSibling && h.nextElementSibling.classList.contains('sub'))
+      h.nextElementSibling.style.display = vis ? '' : 'none';
+  }
+  document.getElementById('cnt').textContent = q ? (hits + ' kết quả') : '';
+}
+document.getElementById('q').addEventListener('input', filter);
+
+/* ---------- TAB ---------- */
+const tabs = document.getElementById('tabs');
+function go(no){
+  [...tabs.children].forEach((x, i) => x.setAttribute('aria-selected', String(i + 1 === no)));
+  render(no);
+  history.replaceState(null, '', '#b' + no);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+for (let i = 1; i <= TOTAL; i++){
+  const btn = document.createElement('button');
+  btn.type = 'button'; btn.setAttribute('role', 'tab');
+  btn.textContent = 'Buổi ' + i;
+  btn.title = (L[i] && L[i].name) || '';
+  btn.addEventListener('click', () => go(i));
+  tabs.appendChild(btn);
+}
+const m = /^#b(\d{1,2})$/.exec(location.hash);
+go(m && L[+m[1]] ? +m[1] : 1);
+
+/* ---------- SÁNG / TỐI ---------- */
+const tbtn = document.getElementById('tbtn');
+function readTheme(){ try{ return localStorage.getItem('pn-theme'); }catch(e){ return null; } }
+function applyTheme(t){
+  if (t) document.documentElement.setAttribute('data-theme', t);
+  else document.documentElement.removeAttribute('data-theme');
+  const dark = t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches);
+  tbtn.textContent = dark ? '☀️ Sáng' : '🌙 Tối';
+}
+applyTheme(readTheme());
+tbtn.addEventListener('click', () => {
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark'
+    || (!document.documentElement.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+  const next = dark ? 'light' : 'dark';
+  try{ localStorage.setItem('pn-theme', next); }catch(e){}
+  applyTheme(next);
+});
+</script>
+</body>
+</html>
